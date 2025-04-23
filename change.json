@@ -1,0 +1,25 @@
+{
+  "builds": [
+    {
+      "src": "src/pandora_cloud/server.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path((?!auth|accounts).*)",
+      "destination": "https://ai.fakeopen.com/api/:path*",
+      "description": "将以 /api/ 开头且不包含 auth 和 accounts 的路径重定向到 https://ai.fakeopen.com/api/ 下对应的路径"
+    },
+    {
+      "source": "/v1/:path(.*)",
+      "destination": "https://api.openai.com/v1/:path*",
+      "description": "将以 /v1/ 开头的路径重定向到 https://api.openai.com/v1/ 下对应的路径"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "src/pandora_cloud/server.py",
+      "description": "将其他所有路径重定向到 src/pandora_cloud/server.py"
+    }
+  ]
+}
